@@ -1,9 +1,0 @@
-a
-b
-c
-t
-ldi %RPG0 2
-ldi %RPG1 5
-add %RPG0 %RPG1
-move %RPG0 %RPG3
--1
