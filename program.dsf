@@ -1,0 +1,13 @@
+a
+b
+ldi %RPG0 2
+ldi %RPG1 5
+add %RPG1 %RPG0
+store %RPG1 a
+add a %RPG0
+ldi %RPG3 7
+store %RPG3 b
+add %RPG1 b
+add 12 a
+imul a %REG0
+-1
