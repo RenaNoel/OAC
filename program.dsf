@@ -1,0 +1,9 @@
+a
+b
+move -2 %RPG0
+move 2 %RPG1
+move 2 %RPG2
+laco:
+add %RPG2 %RPG0
+jlw %RPG1 %RPG0 laco
+-1
