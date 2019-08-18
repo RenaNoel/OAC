@@ -508,44 +508,33 @@ public class Architecture {
 		PC.read();
 		memory.read();
 		demux.put(extbus1.get());
-		registersInternalRead();
-		ula.store(1);
 		IR.internalRead();
-		if(intbus2.get()>0) {
-			for (int i = 1; i<intbus2.get(); i++) {
-				ula.store(0);
+		ula.internalStore(1);
+		registersInternalRead();
+		if(intbus1.get()>0) {
+			for (int i = intbus1.get(); i>1; i--) {
+				ula.internalStore(0);
 				ula.add();
 			}	
 			ula.read(1);
 			registersInternalStore();
 		}else {
-			if((intbus2.get()<0)&&(intbus1.get()>=0)) {
-				ula.internalStore(1);
-				for (int i = 1; i<intbus1.get(); i++) {
-					ula.internalStore(0);
-					ula.add();
+			if(intbus1.get()<0) {
+				for (int i = intbus1.get(); i<1; i++) {
+					ula.read(1);
+					ula.store(0);
+					ula.internalStore(1);
+					ula.sub();
 				}
 				ula.read(1);
 				registersInternalStore();
-			}else{
-				if((intbus2.get()<0)&&(intbus1.get()<0)) {
-					ula.internalStore(0);
-					for (int i = intbus1.get(); i<1; i++) {
-						ula.internalStore(1);
-						ula.sub();
-						ula.read(1);
-						ula.store(0);
-					}
+			}else {
+				if(intbus1.get()==0) {
 					registersInternalStore();
-				}else {
-					if(intbus2.get()==0) {
-						ula.internalStore(1);
-						ula.read(1);
-						registersInternalStore();
-					}
 				}
 			}
 		}
+		
 		setStatusFlags(intbus1.get());
 		PC.internalRead(); //we need to make PC points to the next instruction address
 		ula.internalStore(1);
@@ -648,44 +637,34 @@ public class Architecture {
 		PC.read();
 		memory.read();
 		demux.put(extbus1.get());
-		registersInternalRead();
-		ula.store(1);
 		IR.internalRead();
-		if(intbus2.get()>0) {
-			for (int i = 1; i<intbus2.get(); i++) {
-				ula.store(0);
+		ula.internalStore(1);
+		registersInternalRead();
+		if(intbus1.get()>0) {
+			for (int i = intbus1.get(); i>1; i--) {
+				ula.internalStore(0);
 				ula.add();
 			}
 			ula.read(1);
 			registersInternalStore();
 		}else {
-			if((intbus2.get()<0)&&(intbus1.get()>=0)) {
-				ula.internalStore(1);
-				for (int i = 1; i<intbus1.get(); i++) {
-					ula.internalStore(0);
-					ula.add();	
+			if(intbus1.get()<0) {
+				for (int i = intbus1.get(); i<1; i++) {
+					ula.read(1);
+					ula.store(0);
+					ula.internalStore(1);
+					ula.sub();
 				}
 				ula.read(1);
 				registersInternalStore();
 			
 			}else {
-				if((intbus2.get()<0)&&(intbus1.get()<0)) {
-					ula.internalStore(0);
-					for (int i = intbus1.get(); i<1; i++) {
-						ula.internalStore(1);
-						ula.sub();
-						ula.read(1);
-						ula.store(0);	
-					}
-					
+				if(intbus1.get()==0) {
 					registersInternalStore();
-				}else {
-					if(intbus2.get()==0) {
-						registersInternalStore();
-					}
 				}
 			}
 		}
+		
 		
 		setStatusFlags(intbus1.get());
 		PC.internalRead(); //we need to make PC points to the next instruction address
@@ -968,7 +947,7 @@ public class Architecture {
 		PC.internalStore();
 		registersInternalRead();
 		IR.internalRead();
-		if (intbus1.get()>intbus2.get()) { 
+		if (intbus2.get()>intbus1.get()) { 
 			PC.read();
 			memory.read();
 			PC.store();
@@ -1002,7 +981,7 @@ public class Architecture {
 		PC.internalStore();
 		registersInternalRead();
 		IR.internalRead();
-		if (intbus1.get()<intbus2.get()) { 
+		if (intbus2.get()<intbus1.get()) { 
 			PC.read();
 			memory.read();
 			PC.store();

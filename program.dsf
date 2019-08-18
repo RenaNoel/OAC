@@ -1,9 +1,6 @@
 a
-b
-move -2 %RPG0
-move 2 %RPG1
-move 2 %RPG2
-laco:
-add %RPG2 %RPG0
-jlw %RPG1 %RPG0 laco
+move -5 %RPG3
+move %RPG3 a
+move 3 %RPG0
+imul a %RPG0
 -1
