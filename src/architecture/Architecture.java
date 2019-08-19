@@ -572,12 +572,12 @@ public class Architecture {
 		memory.store();
 		memory.read();
 		IR.store();
-		registersInternalRead();
-		ula.store(1);
 		IR.internalRead();
-		if(intbus2.get()>0) {
-			for (int i = 1; i>intbus2.get(); i++) {
-				ula.store(0);
+		ula.internalStore(1);
+		registersInternalRead();
+		if(intbus1.get()>0) {
+			for (int i = intbus1.get(); i>1; i--) {
+				ula.internalStore(0);
 				ula.add();
 			}
 			ula.internalRead(1);
@@ -588,10 +588,11 @@ public class Architecture {
 			IR.read();
 			memory.store();
 		}else {
-			
 			if(intbus1.get()<0) {
 				for (int i = intbus1.get(); i<1; i++) {
+					ula.read(1);
 					ula.store(0);
+					ula.internalStore(1);
 					ula.sub();
 				}
 				ula.internalRead(1);
