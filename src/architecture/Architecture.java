@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-
+import assembler.Assembler;
 import components.Bus;
 import components.Memory;
 import components.Register;
@@ -409,9 +409,9 @@ public class Architecture {
 		PC.read();
 		memory.read();
 		demux.put(extbus1.get()); //points to the correct register
-		registersInternalRead(); //starts the read from the register identified into demux bus
 		IR.internalRead();
 		ula.internalStore(0);
+		registersInternalRead(); //starts the read from the register identified into demux bus
 		ula.store(1);
 		ula.sub();
 		ula.read(1);
@@ -1397,6 +1397,7 @@ public class Architecture {
 	}
 	
 	public static void main(String[] args) throws IOException {
+		Assembler.main(null);
 		Architecture arch = new Architecture(true);
 		arch.readExec("program");
 		arch.controlUnitEexec();
